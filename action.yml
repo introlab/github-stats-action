@@ -30,7 +30,7 @@ runs:
       working-directory: ${{ github.action_path }}
       
     - name: Run python3 github_stats.py
-      run: python3 github_stats.py --spreadsheet_id ${{ inputs.spreadsheet-id }} --github_owner_name $${{ inputs.github-owner-name }} --github_project_name $${{ inputs.github-project-name }}
+      run: python3 github_stats.py --spreadsheet_id ${{ inputs.spreadsheet-id }} --github_owner_name ${{ inputs.github-owner-name }} --github_project_name ${{ inputs.github-project-name }}
       shell: bash
       env:
         GITHUB_TOKEN: ${{ inputs.github-stats-token }}
