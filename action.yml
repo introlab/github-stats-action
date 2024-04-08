@@ -25,7 +25,7 @@ runs:
       working-directory: ${{ github.action_path }}
       
     - name: Dump Google Credentials into a JSON File
-      run: echo "${{ inputs.google-application-credentials }}" >> google-application-credentials.json
+      run: echo "${{ inputs.google-application-credentials }}" >> ${{ github.action_path }}/google-application-credentials.json
       shell: bash
       working-directory: ${{ github.action_path }}
 
@@ -34,5 +34,5 @@ runs:
       shell: bash
       env:
         GITHUB_TOKEN: ${{ inputs.github-stats-token }}
-        GOOGLE_APPLICATION_CREDENTIALS: google-application-credentials.json
+        GOOGLE_APPLICATION_CREDENTIALS: ${{ github.action_path }}/google-application-credentials.json
       working-directory: ${{ github.action_path }}
