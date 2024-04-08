@@ -275,6 +275,9 @@ def get_spreadsheet_values(spreadsheet_id: str, range_name: str) -> list[list[st
 
 def update_spreadsheet_values(spreadsheet_id: str, range_name: str, value_input_option: str,
                               values: list[list[str]]):
+    if len(values) == 0:
+        return
+
     service = build('sheets', 'v4', credentials=google_credentials)
 
     body = {'values': values}
