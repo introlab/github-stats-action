@@ -1,0 +1,35 @@
+name: 'GitHub Stats'
+description: 'Greet someone'
+inputs:
+  github-stats-token:
+    description: 'GitHub token to read the stats'
+    required: true
+  google-application-credentials:
+    description: 'The JSON content of google application credentials key'
+    required: true
+  spreadsheet-id:
+    description: 'The Google Spreadsheet id'
+    required: true
+  github-owner-name:
+    description: 'The GitHub repo owner'
+    required: true
+  github-project-name:
+    description: 'The GitHub project name'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Install Python Requirements
+      run: python3 -m pip install requirements.txt
+      shell: bash
+      
+    - name: Dump Google Credentials into a JSON File
+      run: echo "${{ inputs.google-application-credentials }}" >> google-application-credentials.json
+      shell: bash
+
+    - name: Run python3 github_stats.py
+      run: python3 github_stats.py --spreadsheet_id ${{ inputs.spreadsheet-id }} --github_owner_name $${{ inputs.github-owner-name }} --github_project_name $${{ inputs.github-project-name }}
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ inputs.github-stats-token }}
+        GOOGLE_APPLICATION_CREDENTIALS: google-application-credentials.json
