@@ -20,7 +20,7 @@ runs:
   using: "composite"
   steps:
     - name: Install Python Requirements
-      run: python3 -m pip install requirements.txt
+      run: python3 -m pip install -r requirements.txt
       shell: bash
       
     - name: Dump Google Credentials into a JSON File
