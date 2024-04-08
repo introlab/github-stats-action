@@ -27,6 +27,12 @@ runs:
       run: echo "${{ inputs.google-application-credentials }}" >> google-application-credentials.json
       shell: bash
 
+    - name: Set GitHub Path
+      run: echo "$GITHUB_ACTION_PATH" >> $GITHUB_PATH
+      shell: bash
+      env:
+        GITHUB_ACTION_PATH: ${{ github.action_path }}
+
     - name: Run python3 github_stats.py
       run: python3 github_stats.py --spreadsheet_id ${{ inputs.spreadsheet-id }} --github_owner_name $${{ inputs.github-owner-name }} --github_project_name $${{ inputs.github-project-name }}
       shell: bash
