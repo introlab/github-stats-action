@@ -7,7 +7,7 @@ This is an action to accumulate the repository traffic in a Google Spreadsheet d
 ### 1. Create the following action secrets
 - `STATS_TOKEN`: A GitHub Personnal Token that has the `administration:read` permission.
 - `GOOGLE_APPLICATION_CREDENTIALS`: The JSON key of the service account that perform the changes in the Google Spreadsheet document.
-- `SPREADSHEET_ID `: The id of the Google Spreadsheet document.
+- `SPREADSHEET_ID`: The id of the Google Spreadsheet document.
 
 ### 2. Add the following workflow
 ```yml
