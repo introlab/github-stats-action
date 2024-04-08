@@ -19,6 +19,12 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Set GitHub Path
+      run: echo "$GITHUB_ACTION_PATH" >> $GITHUB_PATH
+      shell: bash
+      env:
+        GITHUB_ACTION_PATH: ${{ github.action_path }}
+        
     - name: Install Python Requirements
       run: python3 -m pip install -r requirements.txt
       shell: bash
@@ -26,12 +32,6 @@ runs:
     - name: Dump Google Credentials into a JSON File
       run: echo "${{ inputs.google-application-credentials }}" >> google-application-credentials.json
       shell: bash
-
-    - name: Set GitHub Path
-      run: echo "$GITHUB_ACTION_PATH" >> $GITHUB_PATH
-      shell: bash
-      env:
-        GITHUB_ACTION_PATH: ${{ github.action_path }}
 
     - name: Run python3 github_stats.py
       run: python3 github_stats.py --spreadsheet_id ${{ inputs.spreadsheet-id }} --github_owner_name $${{ inputs.github-owner-name }} --github_project_name $${{ inputs.github-project-name }}
