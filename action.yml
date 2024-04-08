@@ -10,12 +10,6 @@ inputs:
   spreadsheet-id:
     description: 'The Google Spreadsheet id'
     required: true
-  github-owner-name:
-    description: 'The GitHub repo owner'
-    required: true
-  github-project-name:
-    description: 'The GitHub project name'
-    required: true
 runs:
   using: "composite"
   steps:        
@@ -30,7 +24,7 @@ runs:
       working-directory: ${{ github.action_path }}
       
     - name: Run python3 github_stats.py
-      run: python3 github_stats.py --spreadsheet_id ${{ inputs.spreadsheet-id }} --github_owner_name ${{ inputs.github-owner-name }} --github_project_name ${{ inputs.github-project-name }}
+      run: python3 github_stats.py --spreadsheet_id ${{ inputs.spreadsheet-id }} --repository $GITHUB_REPOSITORY
       shell: bash
       env:
         GITHUB_TOKEN: ${{ inputs.github-stats-token }}

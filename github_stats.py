@@ -79,17 +79,17 @@ def create_sheet(spreadsheet_id: str, sheet_name: str, index, columns_names: lis
     ).execute()
 
 
-def get_github_stats(owner_name: str, project_name: str):
+def get_github_stats(repository: str):
     headers = {
         'Accept': 'application/vnd.github+json',
         'Authorization': f'Bearer {os.environ["GITHUB_TOKEN"]}',
         'X-GitHub-Api-Version': '2022-11-28',
         'Time-Zone': 'Etc/UCT'
     }
-    clone_stats_url = f'https://api.github.com/repos/{owner_name}/{project_name}/traffic/clones?per=day'
-    path_stats_url = f'https://api.github.com/repos/{owner_name}/{project_name}/traffic/popular/paths'
-    referrers_stats_url = f'https://api.github.com/repos/{owner_name}/{project_name}/traffic/popular/referrers'
-    views_stats_url = f'https://api.github.com/repos/{owner_name}/{project_name}/traffic/views?per=day'
+    clone_stats_url = f'https://api.github.com/repos/{repository}/traffic/clones?per=day'
+    path_stats_url = f'https://api.github.com/repos/{repository}/traffic/popular/paths'
+    referrers_stats_url = f'https://api.github.com/repos/{repository}/traffic/popular/referrers'
+    views_stats_url = f'https://api.github.com/repos/{repository}/traffic/views?per=day'
 
     clone_stats_response = requests.get(clone_stats_url, headers=headers)
     path_stats_response = requests.get(path_stats_url, headers=headers)
@@ -294,13 +294,12 @@ def update_spreadsheet_values(spreadsheet_id: str, range_name: str, value_input_
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--spreadsheet_id", type=str, required=True)
-    parser.add_argument("--github_owner_name", type=str, required=True)
-    parser.add_argument("--github_project_name", type=str, required=True)
+    parser.add_argument("--repository", type=str, required=True)
     args = parser.parse_args()
 
     create_spreadsheet_sheets_if_required(args.spreadsheet_id)
 
-    results = get_github_stats(args.github_owner_name, args.github_project_name)
+    results = get_github_stats(args.repository)
     append_clones_views(args.spreadsheet_id, results)
 
     update_paths(args.spreadsheet_id, results)
