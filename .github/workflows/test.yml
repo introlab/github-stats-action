@@ -16,8 +16,11 @@ jobs:
     name: Test
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Update Stats
-        uses: introlab/github-stats-action@main
+        uses: ./
         with:
           github-stats-token: ${{ secrets.STATS_TOKEN }}
           google-application-credentials: ${{ secrets.GOODLE_APPLICATION_CREDENTIALS }}
