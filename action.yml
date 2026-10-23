@@ -1,5 +1,5 @@
 name: 'GitHub Stats'
-description: 'Greet someone'
+description: 'Update GitHub repository traffic stats in a Google Spreadsheet'
 inputs:
   github-stats-token:
     description: 'GitHub token to read the stats'
